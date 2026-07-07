@@ -1,0 +1,18 @@
+# Environnement virtuel Python
+.venv/
+env/
+ENV/
+venv/
+
+# Caches Python
+**/__pycache__/
+*.py[cod]
+*.class
+
+# Variables d'environnement et secrets
+.env
+*.env
+
+# Base de données locale (si SQLite de test)
+*.sqlite3
+*.db
