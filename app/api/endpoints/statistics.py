@@ -113,13 +113,13 @@ def get_freelancer_statistics(user_id: int, db: Session = Depends(get_db)) -> An
     
     # Tasks completed (assigned to this freelancer + status executed)
     tasks_completed = db.query(func.count(Task.id)).filter(
-        Task.assigned_to_id == user_id,
+        Task.freelancer_id == user_id,
         Task.status == TaskStatus.EXECUTED
     ).scalar() or 0
     
     # Tasks in progress (assigned to this freelancer + status validated)
     tasks_in_progress = db.query(func.count(Task.id)).filter(
-        Task.assigned_to_id == user_id,
+        Task.freelancer_id == user_id,
         Task.status == TaskStatus.VALIDATED
     ).scalar() or 0
     

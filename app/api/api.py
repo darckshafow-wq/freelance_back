@@ -1,4 +1,4 @@
-from app.api.endpoints import users, auth, tasks, applications, admin, dashboard, ws, messages, statistics, reviews
+from app.api.endpoints import users, auth, tasks, applications, admin, dashboard, ws, messages, statistics, reviews, notification
 from fastapi import APIRouter
 
 api_router = APIRouter()
@@ -12,3 +12,4 @@ api_router.include_router(ws.router, prefix="/ws", tags=["websockets"])
 api_router.include_router(messages.router, prefix="/messages", tags=["messages"])
 api_router.include_router(statistics.router, prefix="/statistics", tags=["statistics"])
 api_router.include_router(reviews.router, prefix="/reviews", tags=["reviews"])
+api_router.include_router(notification.router, prefix="/notifications", tags=["notifications"])

@@ -15,9 +15,10 @@ def get_db():
     finally:
         db.close()
 
-# Temporary mock for current user
-def get_current_user_id() -> int:
-    return 1 # In production, extract from JWT token
+from app.api import deps
+
+# Get current user id from dependency
+get_current_user_id = deps.get_current_user_id
 
 @router.post("/", response_model=Task)
 def create_task(

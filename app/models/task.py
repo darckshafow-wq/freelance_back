@@ -19,5 +19,10 @@ class Task(Base):
     location = Column(String(255), index=True, nullable=True)
     status = Column(Enum(TaskStatus), default=TaskStatus.PENDING, index=True)
     
+    # Le client qui crée la tâche
     client_id = Column(Integer, ForeignKey("users.id"))
-    client = relationship("User", backref="tasks")
+    client = relationship("User", foreign_keys=[client_id], backref="created_tasks")
+
+    # AJOUTE CES DEUX LIGNES : Le freelance qui est assigné à la tâche
+    freelancer_id = Column(Integer, ForeignKey("users.id"), nullable=True)
+    freelancer = relationship("User", foreign_keys=[freelancer_id], backref="assigned_tasks")

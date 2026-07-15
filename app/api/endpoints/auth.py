@@ -19,15 +19,23 @@ def get_db():
 def login_access_token(
     db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()
 ) -> Any:
-    # Basic auth implementation - replace with actual JWT token generation in prod
+    from app.core.security import verify_password, create_access_token
+
     user = crud_user.get_by_email(db, email=form_data.username)
     if not user:
-        raise HTTPException(status_code=400, detail="Incorrect email or password")
-    # if not verify_password(form_data.password, user.hashed_password):
-    #     raise HTTPException(status_code=400, detail="Incorrect email or password")
+        raise HTTPException(status_code=400, detail="Email ou mot de passe incorrect")
+    
+    # Validation du mot de passe (à décommenter si les mots de passe de test sont hashés, sinon laisser pour test ou utiliser un mot de passe standard "string")
+    if not verify_password(form_data.password, user.hashed_password):
+        # Pour éviter de bloquer avec les comptes de test (qui n'ont pas de mdp hashé),
+        # si le hash correspond directement (cas du mock) ou autre, on laisse passer pour le dev,
+        # mais on devrait utiliser :
+        raise HTTPException(status_code=400, detail="Email ou mot de passe incorrect")
+
+    access_token = create_access_token(subject=user.id)
     
     return {
-        "access_token": "fake-token-for-now",
+        "access_token": access_token,
         "token_type": "bearer",
         "user_id": user.id,
         "is_verified": user.is_verified,
