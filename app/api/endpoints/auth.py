@@ -4,20 +4,13 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from app.crud.crud_user import user as crud_user
-from app.db.session import SessionLocal
+from app.api import deps
 
 router = APIRouter()
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
 @router.post("/login/access-token")
 def login_access_token(
-    db: Session = Depends(get_db), form_data: OAuth2PasswordRequestForm = Depends()
+    db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends()
 ) -> Any:
     from app.core.security import verify_password, create_access_token
 
@@ -53,7 +46,7 @@ class VerifyOTPSchema(BaseModel):
     code: str
 
 @router.post("/send-otp")
-def send_otp(data: EmailSchema, db: Session = Depends(get_db)):
+def send_otp(data: EmailSchema, db: Session = Depends(deps.get_db)):
     user = crud_user.get_by_email(db, email=data.email)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -72,7 +65,7 @@ def send_otp(data: EmailSchema, db: Session = Depends(get_db)):
     return {"message": "OTP code sent"}
 
 @router.post("/verify-otp")
-def verify_otp(data: VerifyOTPSchema, db: Session = Depends(get_db)):
+def verify_otp(data: VerifyOTPSchema, db: Session = Depends(deps.get_db)):
     user = crud_user.get_by_email(db, email=data.email)
     if not user:
         raise HTTPException(status_code=404, detail="User not found")

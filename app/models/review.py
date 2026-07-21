@@ -17,7 +17,11 @@ class Review(Base):
     content = Column(String(2000), nullable=False)
     review_type = Column(Enum(ReviewType), default=ReviewType.SUGGESTION, index=True)
     created_at = Column(DateTime, default=datetime.utcnow)
-    
+
+    # Auteur de l'avis
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    
-    user = relationship("User", backref="reviews")
+    # Destinataire de l'avis (profil évalué — nullable pour les suggestions générales)
+    reviewee_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)
+
+    user = relationship("User", foreign_keys=[user_id], backref="reviews_written")
+    reviewee = relationship("User", foreign_keys=[reviewee_id], backref="reviews_received")

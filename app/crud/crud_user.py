@@ -11,6 +11,9 @@ class CRUDUser:
     def get_by_email(self, db: Session, email: str) -> Optional[User]:
         return db.query(User).filter(User.email == email).first()
 
+    def get_multi(self, db: Session, skip: int = 0, limit: int = 100):
+        return db.query(User).offset(skip).limit(limit).all()
+
     def create(self, db: Session, obj_in: UserCreate) -> User:
         db_obj = User(
             email=obj_in.email,

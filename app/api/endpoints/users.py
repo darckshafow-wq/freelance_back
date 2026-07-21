@@ -4,23 +4,35 @@ from sqlalchemy.orm import Session
 
 from app.crud.crud_user import user as crud_user
 from app.schemas.user import User, UserCreate
-from app.db.session import SessionLocal
 from app.api import deps
 from app.models.user import User as UserModel
+from app.models.review import Review, ReviewType
+from typing import List, Optional
+from pydantic import BaseModel
+from datetime import datetime
+
+class ReviewCreate(BaseModel):
+    content: str
+    review_type: ReviewType = ReviewType.SUGGESTION
+    reviewee_id: Optional[int] = None  # Profil évalué (optionnel pour les suggestions générales)
+
+class ReviewResponse(BaseModel):
+    id: int
+    content: str
+    review_type: ReviewType
+    user_id: int
+    reviewee_id: Optional[int] = None
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
 
 router = APIRouter()
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 @router.post("/", response_model=User)
 def create_user(
     *,
-    db: Session = Depends(get_db),
+    db: Session = Depends(deps.get_db),
     user_in: UserCreate,
 ) -> Any:
     user = crud_user.get_by_email(db, email=user_in.email)
@@ -40,7 +52,7 @@ def read_user_me(
 
 @router.get("/me/profile")
 def read_user_me_profile(
-    db: Session = Depends(get_db),
+    db: Session = Depends(deps.get_db),
     current_user: UserModel = Depends(deps.get_current_user),
 ) -> Any:
     return read_user_profile(user_id=current_user.id, db=db)
@@ -48,7 +60,7 @@ def read_user_me_profile(
 @router.get("/{user_id}", response_model=User)
 def read_user_by_id(
     user_id: int,
-    db: Session = Depends(get_db),
+    db: Session = Depends(deps.get_db),
 ) -> Any:
     user = crud_user.get(db, id=user_id)
     if not user:
@@ -58,7 +70,7 @@ def read_user_by_id(
 @router.get("/{user_id}/profile")
 def read_user_profile(
     user_id: int,
-    db: Session = Depends(get_db),
+    db: Session = Depends(deps.get_db),
 ) -> Any:
     """
     Get a complete profile of a user (pseudo/full_name, stats depending on role).
@@ -88,3 +100,45 @@ def read_user_profile(
         profile_data["applications"] = [{"id": a.id, "task_id": a.task_id, "status": a.status.value} for a in user.applications]
         
     return profile_data
+
+
+# ─── REVIEWS (Route globale, accessible par tous les rôles) ──────────────────────
+
+@router.get("/reviews/", response_model=List[ReviewResponse], summary="Avis reçus par un profil")
+def get_reviews(
+    db: Session = Depends(deps.get_db),
+    reviewee_id: Optional[int] = None,
+    skip: int = 0,
+    limit: int = 50,
+) -> Any:
+    """
+    Récupère les avis d'un profil via ?reviewee_id=<id>.
+    Sans paramètre, retourne tous les avis (usage admin).
+    """
+    query = db.query(Review)
+    if reviewee_id is not None:
+        query = query.filter(Review.reviewee_id == reviewee_id)
+    reviews = query.order_by(Review.created_at.desc()).offset(skip).limit(limit).all()
+    return reviews
+
+
+@router.post("/reviews/", response_model=ReviewResponse, summary="Laisser un avis sur un profil")
+def create_review(
+    *,
+    db: Session = Depends(deps.get_db),
+    review_in: ReviewCreate,
+    current_user: UserModel = Depends(deps.get_current_user),
+) -> Any:
+    """
+    Crée un avis. reviewee_id désigne le profil évalué (optionnel).
+    """
+    review = Review(
+        content=review_in.content,
+        review_type=review_in.review_type,
+        user_id=current_user.id,
+        reviewee_id=review_in.reviewee_id,
+    )
+    db.add(review)
+    db.commit()
+    db.refresh(review)
+    return review

@@ -10,7 +10,7 @@ from app.models.user import User
 from app.models.task import Task, TaskStatus
 from app.models.application import Application, ApplicationStatus
 from app.models.message import Message
-from app.models.notification import Notification
+from app.models.notifications import Notification
 from app.models.review import Review, ReviewType
 from app.core.security import get_password_hash
 
