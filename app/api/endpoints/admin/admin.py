@@ -15,21 +15,38 @@ from app.models.message import Message
 from app.models.notifications import Notification as NotificationModel
 from app.crud.crud_notification import notification as crud_notification
 from app.schemas.notification_schema import Notification as NotificationSchema, NotificationCreate
-from app.models.review import Review, ReviewType
-from pydantic import BaseModel
-from datetime import datetime
+from app.services.notification_service import notification_service
+from app.models.review import Review
+from pydantic import BaseModel, ConfigDict
+from datetime import datetime, timezone
 
 class ReviewResponse(BaseModel):
     id: int
-    content: str
-    review_type: ReviewType
-    user_id: int
+    comment: str
+    rating: float
+    task_id: int
+    reviewer_id: int
+    reviewee_id: int
     created_at: datetime
+    model_config = ConfigDict(from_attributes=True)
 
-    class Config:
-        from_attributes = True
+router = APIRouter(dependencies=[Depends(deps.log_action)])
 
-router = APIRouter()
+_BROADCAST_HISTORY: list[dict[str, Any]] = []
+
+
+@router.get("/audit", summary="Audit: usage par rôle (admin)")
+def get_audit_stats(
+    db: Session = Depends(deps.get_db),
+    _: UserModel = Depends(deps.get_current_active_admin),
+) -> Any:
+    from app.crud.crud_audit import audit as crud_audit
+
+    recent = crud_audit.get_recent(db, limit=200)
+    agg = crud_audit.aggregate_by_role(db)
+    return {"aggregated_by_role": agg, "recent": [
+        {"user_id": r.user_id, "path": r.path, "method": r.method, "role": r.role, "created_at": r.created_at.isoformat()} for r in recent
+    ]}
 
 
 @router.get("/tasks", response_model=List[Task], summary="Toutes les missions (admin)")
@@ -83,6 +100,24 @@ def delete_user(
     db.delete(user)
     db.commit()
     return {"deleted": True, "user_id": user_id}
+
+@router.put("/users/{user_id}/verify", summary="Valider un utilisateur (admin)")
+def verify_user(
+    user_id: int,
+    db: Session = Depends(deps.get_db),
+    _: UserModel = Depends(deps.get_current_active_admin),
+) -> Any:
+    user = crud_user.get(db, id=user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="Utilisateur introuvable")
+
+    if not user.is_verified:
+        user.is_verified = True
+        db.add(user)
+        db.commit()
+        db.refresh(user)
+
+    return {"verified": True, "user_id": user_id, "is_verified": user.is_verified}
 
 # ─── SECTION STATISTIQUES ─────────────────────────────────────────────
 
@@ -186,8 +221,61 @@ def create_admin_notification(
 ) -> Any:
     if message_in.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="Non autorisé")
-    notif = crud_notification.create(db, obj_in=message_in)
+    notif = notification_service.create_for_user(db, user_id=message_in.user_id, message=message_in.message, is_read=message_in.is_read)
     return notif
+
+@router.get("/notifications/broadcast", summary="Historique des broadcasts")
+def list_admin_broadcasts(
+    current_user: UserModel = Depends(deps.get_current_active_admin),
+) -> Any:
+    return [dict(entry) for entry in _BROADCAST_HISTORY]
+
+
+@router.post("/notifications/broadcast", summary="Diffuser une notification à un rôle")
+def broadcast_admin_notification(
+    *,
+    db: Session = Depends(deps.get_db),
+    title: str,
+    content: str,
+    target_role: str = "all",
+    current_user: UserModel = Depends(deps.get_current_active_admin),
+) -> Any:
+    if not title or not content:
+        raise HTTPException(status_code=400, detail="title and content are required")
+
+    query = db.query(UserModel)
+    if target_role == "freelance":
+        query = query.filter(UserModel.is_freelancer == True)
+    elif target_role == "client":
+        query = query.filter(UserModel.is_client == True)
+    elif target_role != "all":
+        raise HTTPException(status_code=400, detail="target_role must be one of: all, freelance, client")
+
+    recipients = query.filter(UserModel.is_active == True).all()
+    message = f"{title}: {content}"
+    created = 0
+
+    for user in recipients:
+        if user.id == current_user.id:
+            continue
+        notif = NotificationCreate(message=message, user_id=user.id, is_read=False)
+        crud_notification.create(db, obj_in=notif)
+        created += 1
+
+    _BROADCAST_HISTORY.append(
+        {
+            "id": len(_BROADCAST_HISTORY) + 1,
+            "title": title,
+            "body": content,
+            "type": "system",
+            "is_read": False,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "related_id": None,
+            "action_route": None,
+        }
+    )
+
+    return {"created": created, "target_role": target_role, "message": message}
 
 @router.post("/notifications/{notification_id}/read", response_model=NotificationSchema, summary="Marquer comme lue")
 def read_admin_notification(
@@ -198,7 +286,7 @@ def read_admin_notification(
     db_notification = crud_notification.get(db, id=notification_id)
     if not db_notification or db_notification.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Notification non trouvée")
-    return crud_notification.mark_as_read(db, db_obj=db_notification)
+    return notification_service.mark_as_read(db, notification=db_notification)
 
 @router.delete("/notifications/{notification_id}", summary="Supprimer une notification")
 def delete_admin_notification(

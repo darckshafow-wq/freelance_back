@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from app.models.application import ApplicationStatus
 
 class ApplicationBase(BaseModel):
@@ -16,9 +16,7 @@ class ApplicationInDBBase(ApplicationBase):
     task_id: int
     freelance_id: int
     status: ApplicationStatus
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class Application(ApplicationInDBBase):
     pass

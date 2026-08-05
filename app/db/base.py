@@ -7,3 +7,4 @@ from app.models.application import Application
 from app.models.message import Message
 from app.models.notifications import Notification
 from app.models.review import Review
+from app.models.audit import AuditLog

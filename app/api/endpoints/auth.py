@@ -1,42 +1,57 @@
 from typing import Any
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
+from pydantic import BaseModel
+import random
+from datetime import datetime, timedelta, timezone
 
 from app.crud.crud_user import user as crud_user
 from app.api import deps
+from app.services.auth_service import auth_service
 
 router = APIRouter()
 
 @router.post("/login/access-token")
-def login_access_token(
-    db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends()
-) -> Any:
-    from app.core.security import verify_password, create_access_token
+async def login_access_token(request: Request, db: Session = Depends(deps.get_db)) -> Any:
+    from app.core.security import verify_password
 
-    user = crud_user.get_by_email(db, email=form_data.username)
+    content_type = request.headers.get("content-type", "")
+    username = None
+    password = None
+
+    if "application/json" in content_type:
+        payload = await request.json()
+        username = payload.get("username")
+        password = payload.get("password")
+    else:
+        form_data = await request.form()
+        username = form_data.get("username")
+        password = form_data.get("password")
+
+    if not username or not password:
+        raise HTTPException(status_code=422, detail="username and password are required")
+
+    user = crud_user.get_by_email(db, email=username)
     if not user:
         raise HTTPException(status_code=400, detail="Email ou mot de passe incorrect")
-    
-    # Validation du mot de passe (à décommenter si les mots de passe de test sont hashés, sinon laisser pour test ou utiliser un mot de passe standard "string")
-    if not verify_password(form_data.password, user.hashed_password):
-        # Pour éviter de bloquer avec les comptes de test (qui n'ont pas de mdp hashé),
-        # si le hash correspond directement (cas du mock) ou autre, on laisse passer pour le dev,
-        # mais on devrait utiliser :
+
+    if not verify_password(password, user.hashed_password):
         raise HTTPException(status_code=400, detail="Email ou mot de passe incorrect")
 
-    access_token = create_access_token(subject=user.id)
-    
-    return {
-        "access_token": access_token,
-        "token_type": "bearer",
-        "user_id": user.id,
-        "is_verified": user.is_verified,
-    }
+    return auth_service.issue_tokens(db, user)
 
-from pydantic import BaseModel
-import random
-from datetime import datetime, timedelta
+
+class RefreshTokenRequest(BaseModel):
+    refresh_token: str
+
+
+@router.post("/refresh")
+def refresh_token(payload: RefreshTokenRequest, db: Session = Depends(deps.get_db)) -> Any:
+    tokens = auth_service.refresh(db, payload.refresh_token)
+    if not tokens:
+        raise HTTPException(status_code=401, detail="Refresh token invalide ou expiré")
+    return tokens
 
 class EmailSchema(BaseModel):
     email: str
@@ -55,12 +70,16 @@ def send_otp(data: EmailSchema, db: Session = Depends(deps.get_db)):
     user.otp_code = otp_code
     # Simple expiration (10 mins) as string for simplicity, or use real datetime
     # We use string here to match the User model otp_expires_at field
-    user.otp_expires_at = (datetime.utcnow() + timedelta(minutes=10)).isoformat()
+    user.otp_expires_at = (datetime.now(timezone.utc) + timedelta(minutes=10)).isoformat()
     
     db.commit()
     
-    # Simulate sending email
-    print(f"\\n\\n{'='*40}\\n[SIMULATED EMAIL] OTP Code for {data.email}: {otp_code}\\n{'='*40}\\n\\n")
+    # ── DEV MODE : afficher l'OTP dans la console du serveur ──────────────────
+    print(f"\n{'='*50}")
+    print(f"  📧 OTP pour {data.email}")
+    print(f"  🔑 Code : {otp_code}")
+    print(f"{'='*50}\n")
+    # ─────────────────────────────────────────────────────────────────────────
     
     return {"message": "OTP code sent"}
 
@@ -75,7 +94,7 @@ def verify_otp(data: VerifyOTPSchema, db: Session = Depends(deps.get_db)):
         
     if user.otp_expires_at:
         expires = datetime.fromisoformat(user.otp_expires_at)
-        if datetime.utcnow() > expires:
+        if datetime.now(timezone.utc) > expires:
             raise HTTPException(status_code=400, detail="OTP code expired")
             
     # Mark as verified

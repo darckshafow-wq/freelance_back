@@ -2,6 +2,8 @@
 Tests des fonctionnalités client : gestion des missions et des candidatures.
 """
 from fastapi.testclient import TestClient
+from app.models.notifications import Notification
+from app.models.task import Task
 from tests.conftest import create_user, auth_headers
 
 
@@ -118,3 +120,36 @@ def test_client_view_task_applications(client: TestClient):
     r = client.get(f"/api/v1/client/tasks/{task_id}/applications", headers=client_h)
     assert r.status_code == 200
     assert len(r.json()) == 2
+
+
+def test_accepting_application_assigns_freelancer_and_creates_notification(client: TestClient, db_session):
+    """Accepter une candidature doit affecter le freelance et créer une notification."""
+    client_user = create_user(client, "client@test.com", "pass123", is_client=True)
+    freelancer_user = create_user(client, "free@test.com", "pass123", is_freelancer=True)
+    admin_user = create_user(client, "admin@test.com", "pass123", is_admin=True)
+
+    client_h = auth_headers(client, "client@test.com", "pass123")
+    admin_h = auth_headers(client, "admin@test.com", "pass123")
+    free_h = auth_headers(client, "free@test.com", "pass123")
+
+    task_r = client.post("/api/v1/client/tasks", headers=client_h, json={
+        "title": "Mission à attribuer", "price": 600.0, "location": "Remote"
+    })
+    task_id = task_r.json()["id"]
+    client.put(f"/api/v1/admin/tasks/{task_id}", headers=admin_h,
+               json={"title": "Mission à attribuer", "price": 600.0, "status": "validated"})
+
+    app_r = client.post("/api/v1/freelance/apply", headers=free_h, json={
+        "task_id": task_id, "message": "Je suis disponible"
+    })
+    app_id = app_r.json()["id"]
+
+    response = client.put(f"/api/v1/client/applications/{app_id}/accept", headers=client_h)
+    assert response.status_code == 200
+    assert response.json()["status"] == "accepted"
+
+    task = db_session.query(Task).filter(Task.id == task_id).one()
+    assert task.freelancer_id == freelancer_user["id"]
+
+    notifications = db_session.query(Notification).filter(Notification.user_id == freelancer_user["id"]).all()
+    assert any("accept" in notification.message.lower() for notification in notifications)

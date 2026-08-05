@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from app.models.task import TaskStatus
 
 class TaskBase(BaseModel):
@@ -20,9 +20,7 @@ class TaskInDBBase(TaskBase):
     id: int
     client_id: int
     status: TaskStatus
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 class Task(TaskInDBBase):
     pass

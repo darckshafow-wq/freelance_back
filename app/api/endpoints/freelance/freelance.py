@@ -2,7 +2,7 @@ from typing import Any, List, Optional
 from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session, joinedload
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from sqlalchemy import func, or_
 
 from app.api import deps
@@ -16,9 +16,8 @@ from app.models.message import Message
 from app.models.notifications import Notification as NotificationModel
 from app.crud.crud_notification import notification as crud_notification
 from app.schemas.notification_schema import Notification as NotificationSchema, NotificationCreate
-from app.models.review import Review, ReviewType
-from pydantic import BaseModel
-
+from app.services.notification_service import notification_service
+from app.services.notification_service import notification_service
 # ─── SCHEMAS PYDANTIC POUR LE TRANSIT DES DONNÉES ─────────────────────────
 
 class MessageCreate(BaseModel):
@@ -33,23 +32,8 @@ class MessageResponse(BaseModel):
     receiver_id: int
     task_id: int | None
     timestamp: datetime
+    model_config = ConfigDict(from_attributes=True)
 
-    class Config:
-        from_attributes = True
-
-class ReviewCreate(BaseModel):
-    content: str
-    review_type: ReviewType = ReviewType.SUGGESTION
-
-class ReviewResponse(BaseModel):
-    id: int
-    content: str
-    review_type: ReviewType
-    user_id: int
-    created_at: datetime
-
-    class Config:
-        from_attributes = True
 
 router = APIRouter()
 
@@ -97,8 +81,6 @@ def apply_for_task(
 
     return crud_app.create_with_freelance(db=db, obj_in=app_in, freelance_id=current_user.id)
 
-#TODO: revoire laletre de motivation pour lenvois tu poste 
-# FIXME : revoire luniciter de char application mme si il est fais par le meme clien
 @router.get("/applications", summary="Mes candidatures")
 def get_my_applications(
     db: Session = Depends(deps.get_db),
@@ -186,15 +168,29 @@ def get_conversation(
     skip: int = 0,
     limit: int = 100
 ) -> Any:
-    has_access = db.query(ApplicationModel).join(Task).filter(
-        ApplicationModel.freelance_id == current_user.id,
-        Task.client_id == other_user_id,
-        ApplicationModel.status == ApplicationStatus.ACCEPTED
-    ).first()
+    has_access = (
+        db.query(ApplicationModel)
+        .join(Task, ApplicationModel.task_id == Task.id, isouter=True)
+        .filter(
+            ApplicationModel.freelance_id == current_user.id,
+            (
+                (Task.client_id == other_user_id)
+                | (ApplicationModel.task_id.is_(None))
+            ),
+            ApplicationModel.status == ApplicationStatus.ACCEPTED,
+        )
+        .first()
+    )
+
+    if not has_access:
+        has_access = db.query(Message).filter(
+            ((Message.sender_id == current_user.id) & (Message.receiver_id == other_user_id)) |
+            ((Message.sender_id == other_user_id) & (Message.receiver_id == current_user.id))
+        ).first()
 
     if not has_access:
         raise HTTPException(
-            status_code=403, 
+            status_code=403,
             detail="Vous n'êtes pas autorisé à ouvrir un chat avec cet utilisateur (aucune mission acceptée)."
         )
 
@@ -296,7 +292,7 @@ def create_freelancer_notification(
     # Ensure the notification is for the current user
     if message_in.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="Non autorisé")
-    notif = crud_notification.create(db, obj_in=message_in)
+    notif = notification_service.create_for_user(db, user_id=message_in.user_id, message=message_in.message, is_read=message_in.is_read)
     return notif
 
 @router.post("/notifications/{notification_id}/read", response_model=NotificationSchema, summary="Marquer comme lue")
@@ -308,7 +304,7 @@ def read_freelancer_notification(
     db_notification = crud_notification.get(db, id=notification_id)
     if not db_notification or db_notification.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Notification non trouvée")
-    return crud_notification.mark_as_read(db, db_obj=db_notification)
+    return notification_service.mark_as_read(db, notification=db_notification)
 
 @router.delete("/notifications/{notification_id}", summary="Supprimer une notification")
 def delete_freelancer_notification(
@@ -322,22 +318,3 @@ def delete_freelancer_notification(
     db.delete(db_notification)
     db.commit()
     return {"deleted": True, "id": notification_id}
-
-# ─── SECTION 5 : AVIS ET SUGGESTIONS ──────────────────────────────────────
-
-@router.post("/reviews", response_model=ReviewResponse, summary="Laisser un avis ou une suggestion")
-def create_freelancer_review(
-    *,
-    db: Session = Depends(deps.get_db),
-    review_in: ReviewCreate,
-    current_user: UserModel = Depends(deps.get_current_active_freelancer)
-) -> Any:
-    review = Review(
-        content=review_in.content,
-        review_type=review_in.review_type,
-        user_id=current_user.id
-    )
-    db.add(review)
-    db.commit()
-    db.refresh(review)
-    return review

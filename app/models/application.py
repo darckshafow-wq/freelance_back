@@ -8,6 +8,7 @@ class ApplicationStatus(str, enum.Enum):
     PENDING = "pending"
     ACCEPTED = "accepted"
     REJECTED = "rejected"
+    INTERVIEW = "interview"
 
 class Application(Base):
     __tablename__ = "applications"
