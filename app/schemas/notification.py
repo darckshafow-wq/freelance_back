@@ -1,5 +1,5 @@
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 # Remplace l'ancien import par celui-ci avec un alias 'as' :
 from app.models.notifications import Notification as NotificationModel
 
@@ -16,6 +16,4 @@ class NotificationUpdate(NotificationBase):
 class NotificationInDBBase(NotificationBase):
     id: int
     user_id: int
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)

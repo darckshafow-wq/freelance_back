@@ -54,6 +54,18 @@ def test_login_wrong_password(client: TestClient):
     assert r.status_code == 400
 
 
+def test_login_accepts_json_body(client: TestClient):
+    """Le login doit accepter un body JSON utilisé par les clients mobiles."""
+    create_user(client, "jsonlogin@test.com", "password123", is_client=True)
+    r = client.post(
+        "/api/v1/login/access-token",
+        json={"username": "jsonlogin@test.com", "password": "password123"},
+    )
+    assert r.status_code == 200
+    data = r.json()
+    assert "access_token" in data
+
+
 def test_get_current_user_me(client: TestClient):
     """Un utilisateur authentifié peut récupérer son profil /users/me."""
     create_user(client, "me@test.com", "pass123", is_freelancer=True)
@@ -67,3 +79,23 @@ def test_access_protected_without_token(client: TestClient):
     """L'accès à une route protégée sans token doit retourner 401."""
     r = client.get("/api/v1/users/me")
     assert r.status_code == 401
+
+
+def test_refresh_token_returns_new_tokens(client: TestClient):
+    """Un refresh token valide doit permettre d'obtenir de nouveaux tokens."""
+    create_user(client, "refresh@test.com", "password123", is_client=True)
+    login_response = client.post(
+        "/api/v1/login/access-token",
+        data={"username": "refresh@test.com", "password": "password123"},
+    )
+    assert login_response.status_code == 200
+    refresh_token = login_response.json()["refresh_token"]
+
+    refresh_response = client.post(
+        "/api/v1/refresh",
+        json={"refresh_token": refresh_token},
+    )
+    assert refresh_response.status_code == 200
+    data = refresh_response.json()
+    assert data["access_token"]
+    assert data["refresh_token"]

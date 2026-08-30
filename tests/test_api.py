@@ -67,6 +67,15 @@ def test_admin_validate_task(client: TestClient):
         },
     )
     # And a client
+    client.post(
+        "/api/v1/users/",
+        json={
+            "email": "client@test.com",
+            "password": "password123",
+            "full_name": "Test Client",
+            "is_client": True,
+        },
+    )
     token = get_auth_token(client, "client@test.com", "password123")
     
     # First create a task

@@ -6,26 +6,26 @@ from app.crud.crud_user import user as crud_user
 from app.schemas.user import User, UserCreate
 from app.api import deps
 from app.models.user import User as UserModel
-from app.models.review import Review, ReviewType
+from app.models.review import Review
 from typing import List, Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 
 class ReviewCreate(BaseModel):
-    content: str
-    review_type: ReviewType = ReviewType.SUGGESTION
-    reviewee_id: Optional[int] = None  # Profil évalué (optionnel pour les suggestions générales)
+    comment: str
+    rating: float
+    task_id: int
+    reviewee_id: int
 
 class ReviewResponse(BaseModel):
     id: int
-    content: str
-    review_type: ReviewType
-    user_id: int
-    reviewee_id: Optional[int] = None
+    comment: str
+    rating: float
+    task_id: int
+    reviewer_id: int
+    reviewee_id: int
     created_at: datetime
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 router = APIRouter()
 
@@ -93,7 +93,7 @@ def read_user_profile(
     
     # Si le user est client, on renvoie ses tâches créées
     if user.is_client:
-        profile_data["posted_tasks"] = [{"id": t.id, "title": t.title, "status": t.status.value} for t in user.tasks]
+        profile_data["posted_tasks"] = [{"id": t.id, "title": t.title, "status": t.status.value} for t in user.created_tasks]
         
     # Si le user est freelance, on renvoie ses candidatures
     if user.is_freelancer:
@@ -130,12 +130,13 @@ def create_review(
     current_user: UserModel = Depends(deps.get_current_user),
 ) -> Any:
     """
-    Crée un avis. reviewee_id désigne le profil évalué (optionnel).
+    Crée un avis sur un profil à la suite d'une mission accomplie.
     """
     review = Review(
-        content=review_in.content,
-        review_type=review_in.review_type,
-        user_id=current_user.id,
+        comment=review_in.comment,
+        rating=review_in.rating,
+        task_id=review_in.task_id,
+        reviewer_id=current_user.id,
         reviewee_id=review_in.reviewee_id,
     )
     db.add(review)

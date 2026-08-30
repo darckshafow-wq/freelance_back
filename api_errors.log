@@ -1,0 +1,1203 @@
+2026-07-31 20:28:38,429 - api_error_logger - ERROR - Erreur non gérée sur GET http://10.149.143.48:8000/api/v1/freelance/applications
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1710, in _object_value_for_elem
+    return self._object_lookup[elem]  # type: ignore[return-value]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'INTERVIEW'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/freelance/freelance.py", line 118, in get_my_applications
+    apps = query.all()
+           ^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 1826, in all
+    return self._allrows()
+           ^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 587, in _allrows
+    rows = self._fetchall_impl()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 1733, in _fetchall_impl
+    return self._real_result._fetchall_impl()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 2337, in _fetchall_impl
+    return list(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 220, in chunks
+    fetch = cursor._raw_all_rows()
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 580, in _raw_all_rows
+    return [make_row(row) for row in rows]
+            ^^^^^^^^^^^^^
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 22, in sqlalchemy.cyextension.resultproxy.BaseRow.__init__
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 79, in sqlalchemy.cyextension.resultproxy._apply_processors
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1830, in process
+    value = self._object_value_for_elem(value)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1712, in _object_value_for_elem
+    raise LookupError(
+LookupError: 'INTERVIEW' is not among the defined enum values. Enum name: applicationstatus. Possible values: PENDING, ACCEPTED, REJECTED
+
+2026-07-31 20:28:50,882 - api_error_logger - ERROR - Erreur non gérée sur GET http://10.149.143.48:8000/api/v1/freelance/applications
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1710, in _object_value_for_elem
+    return self._object_lookup[elem]  # type: ignore[return-value]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'INTERVIEW'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/freelance/freelance.py", line 118, in get_my_applications
+    apps = query.all()
+           ^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 1826, in all
+    return self._allrows()
+           ^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 587, in _allrows
+    rows = self._fetchall_impl()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 1733, in _fetchall_impl
+    return self._real_result._fetchall_impl()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 2337, in _fetchall_impl
+    return list(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 220, in chunks
+    fetch = cursor._raw_all_rows()
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 580, in _raw_all_rows
+    return [make_row(row) for row in rows]
+            ^^^^^^^^^^^^^
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 22, in sqlalchemy.cyextension.resultproxy.BaseRow.__init__
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 79, in sqlalchemy.cyextension.resultproxy._apply_processors
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1830, in process
+    value = self._object_value_for_elem(value)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1712, in _object_value_for_elem
+    raise LookupError(
+LookupError: 'INTERVIEW' is not among the defined enum values. Enum name: applicationstatus. Possible values: PENDING, ACCEPTED, REJECTED
+
+2026-07-31 20:29:05,943 - api_error_logger - ERROR - Erreur non gérée sur GET http://10.149.143.48:8000/api/v1/freelance/applications
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1710, in _object_value_for_elem
+    return self._object_lookup[elem]  # type: ignore[return-value]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'INTERVIEW'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/freelance/freelance.py", line 118, in get_my_applications
+    apps = query.all()
+           ^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2711, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 1826, in all
+    return self._allrows()
+           ^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 587, in _allrows
+    rows = self._fetchall_impl()
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 1733, in _fetchall_impl
+    return self._real_result._fetchall_impl()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 2337, in _fetchall_impl
+    return list(self.iterator)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 220, in chunks
+    fetch = cursor._raw_all_rows()
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 580, in _raw_all_rows
+    return [make_row(row) for row in rows]
+            ^^^^^^^^^^^^^
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 22, in sqlalchemy.cyextension.resultproxy.BaseRow.__init__
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 79, in sqlalchemy.cyextension.resultproxy._apply_processors
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1830, in process
+    value = self._object_value_for_elem(value)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1712, in _object_value_for_elem
+    raise LookupError(
+LookupError: 'INTERVIEW' is not among the defined enum values. Enum name: applicationstatus. Possible values: PENDING, ACCEPTED, REJECTED
+
+2026-07-31 20:29:46,580 - api_error_logger - ERROR - Erreur non gérée sur POST http://10.149.143.48:8000/api/v1/freelance/apply
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1710, in _object_value_for_elem
+    return self._object_lookup[elem]  # type: ignore[return-value]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^
+KeyError: 'INTERVIEW'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/freelance/freelance.py", line 94, in apply_for_task
+    ).first()
+      ^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 1843, in first
+    return self._only_one_row(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 796, in _only_one_row
+    row: Optional[_InterimRowType[Any]] = onerow(hard_close=True)
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 1730, in _fetchone_impl
+    return self._real_result._fetchone_impl(hard_close=hard_close)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 2326, in _fetchone_impl
+    row = next(self.iterator, _NO_ROW)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 220, in chunks
+    fetch = cursor._raw_all_rows()
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/result.py", line 580, in _raw_all_rows
+    return [make_row(row) for row in rows]
+            ^^^^^^^^^^^^^
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 22, in sqlalchemy.cyextension.resultproxy.BaseRow.__init__
+  File "lib/sqlalchemy/cyextension/resultproxy.pyx", line 79, in sqlalchemy.cyextension.resultproxy._apply_processors
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1830, in process
+    value = self._object_value_for_elem(value)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/sqltypes.py", line 1712, in _object_value_for_elem
+    raise LookupError(
+LookupError: 'INTERVIEW' is not among the defined enum values. Enum name: applicationstatus. Possible values: PENDING, ACCEPTED, REJECTED
+
+2026-08-01 09:39:29,790 - api_error_logger - ERROR - Erreur non gérée sur GET http://testserver/api/v1/admin/audit
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 466, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/dependencies/utils.py", line 680, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/deps.py", line 88, in get_current_active_admin
+    if not current_user.is_admin:
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 569, in __get__
+    return self.impl.get(state, dict_)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1096, in get
+    value = self._fire_loader_callables(state, key, passive)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/attributes.py", line 1126, in _fire_loader_callables
+    return state._load_expired(state, passive)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/state.py", line 828, in _load_expired
+    self.manager.expired_attribute_loader(self, toload, passive)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 1674, in load_scalar_attributes
+    result = load_on_ident(
+             ^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 510, in load_on_ident
+    return load_on_pk_identity(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/loading.py", line 695, in load_on_pk_identity
+    session.execute(
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 975, in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.OperationalError) no such table: audit_logs
+[SQL: INSERT INTO audit_logs (user_id, path, method, role, created_at) VALUES (?, ?, ?, ?, ?)]
+[parameters: (1, '/api/v1/admin/audit', 'GET', 'admin', '2026-08-01 09:39:29.758085')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+
+2026-08-01 09:41:15,561 - api_error_logger - ERROR - Erreur non gérée sur GET http://testserver/api/v1/admin/audit
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 466, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/dependencies/utils.py", line 649, in solve_dependencies
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/dependencies/utils.py", line 680, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/deps.py", line 37, in get_current_user
+    user = crud_user.get(db, id=user_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/crud/crud_user.py", line 9, in get
+    return db.query(User).filter(User.id == id).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 975, in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.OperationalError) no such table: audit_logs
+[SQL: INSERT INTO audit_logs (user_id, path, method, role, created_at) VALUES (?, ?, ?, ?, ?)]
+[parameters: (1, '/api/v1/admin/audit', 'GET', 'admin', '2026-08-01 09:41:15.548735')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+
+2026-08-01 09:42:19,201 - api_error_logger - ERROR - Erreur non gérée sur GET http://testserver/api/v1/admin/audit
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 466, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/dependencies/utils.py", line 649, in solve_dependencies
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/dependencies/utils.py", line 680, in solve_dependencies
+    solved = await run_in_threadpool(call, **solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/deps.py", line 37, in get_current_user
+    user = crud_user.get(db, id=user_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/crud/crud_user.py", line 9, in get
+    return db.query(User).filter(User.id == id).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2261, in _execute_internal
+    conn = self._connection_for_bind(bind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2113, in _connection_for_bind
+    return trans._connection_for_bind(engine, execution_options)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in _connection_for_bind
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/state_changes.py", line 101, in _go
+    self._raise_for_prerequisite_state(fn.__name__, current_state)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 975, in _raise_for_prerequisite_state
+    raise sa_exc.PendingRollbackError(
+sqlalchemy.exc.PendingRollbackError: This Session's transaction has been rolled back due to a previous exception during flush. To begin a new transaction with this Session, first issue Session.rollback(). Original exception was: (sqlite3.OperationalError) no such table: audit_logs
+[SQL: INSERT INTO audit_logs (user_id, path, method, role, created_at) VALUES (?, ?, ?, ?, ?)]
+[parameters: (1, '/api/v1/admin/audit', 'GET', 'admin', '2026-08-01 09:42:19.176676')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8) (Background on this error at: https://sqlalche.me/e/20/7s2a)
+
+2026-08-01 10:50:45,089 - api_error_logger - ERROR - Erreur non gérée sur GET http://localhost:8000/api/v1/users/30/profile
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/users.py", line 96, in read_user_profile
+    profile_data["posted_tasks"] = [{"id": t.id, "title": t.title, "status": t.status.value} for t in user.tasks]
+                                                                                                      ^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'tasks'
+
+2026-08-01 10:50:55,158 - api_error_logger - ERROR - Erreur non gérée sur GET http://localhost:8000/api/v1/users/30/profile
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/users.py", line 96, in read_user_profile
+    profile_data["posted_tasks"] = [{"id": t.id, "title": t.title, "status": t.status.value} for t in user.tasks]
+                                                                                                      ^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'tasks'
+
+2026-08-03 11:04:40,390 - api_error_logger - ERROR - Erreur non gérée sur POST http://localhost:8000/api/v1/login/access-token
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column users.refresh_token does not exist
+LINE 1: ...de, users.otp_expires_at AS users_otp_expires_at, users.refr...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/auth.py", line 21, in login_access_token
+    user = crud_user.get_by_email(db, email=form_data.username)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/crud/crud_user.py", line 12, in get_by_email
+    return db.query(User).filter(User.email == email).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2766, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2864, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2373, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2271, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 306, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column users.refresh_token does not exist
+LINE 1: ...de, users.otp_expires_at AS users_otp_expires_at, users.refr...
+                                                             ^
+
+[SQL: SELECT users.id AS users_id, users.full_name AS users_full_name, users.email AS users_email, users.hashed_password AS users_hashed_password, users.is_active AS users_is_active, users.is_admin AS users_is_admin, users.is_client AS users_is_client, users.is_freelancer AS users_is_freelancer, users.location AS users_location, users.is_verified AS users_is_verified, users.otp_code AS users_otp_code, users.otp_expires_at AS users_otp_expires_at, users.refresh_token AS users_refresh_token, users.refresh_token_expires_at AS users_refresh_token_expires_at 
+FROM users 
+WHERE users.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'mohamed@gmail.com', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+
+2026-08-03 11:09:21,623 - api_error_logger - ERROR - Erreur non gérée sur GET http://localhost:8000/api/v1/users/30/profile
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/users.py", line 94, in read_user_profile
+    profile_data["posted_tasks"] = [{"id": t.id, "title": t.title, "status": t.status.value} for t in user.tasks]
+                                                                                                      ^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'tasks'
+
+2026-08-03 11:11:24,820 - api_error_logger - ERROR - Erreur non gérée sur GET http://localhost:8000/api/v1/users/30/profile
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/users.py", line 94, in read_user_profile
+    profile_data["posted_tasks"] = [{"id": t.id, "title": t.title, "status": t.status.value} for t in user.client_tasks]
+                                                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'client_tasks'
+
+2026-08-03 11:12:33,218 - api_error_logger - ERROR - Erreur non gérée sur GET http://localhost:8000/api/v1/users/30/profile
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/users.py", line 94, in read_user_profile
+    profile_data["posted_tasks"] = [{"id": t.id, "title": t.title, "status": t.status.value} for t in user.client_tasks]
+                                                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'client_tasks'
+
+2026-08-03 11:12:46,993 - api_error_logger - ERROR - Erreur non gérée sur GET http://localhost:8000/api/v1/users/30/profile
+Traceback (most recent call last):
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/routing.py", line 680, in app
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1620, in _handle_selected
+    await route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1609, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 2047, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1629, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 1218, in handle
+    await app(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 143, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 129, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 683, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/fastapi/routing.py", line 339, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/starlette/concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/to_thread.py", line 63, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2592, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/venv/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 1029, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shadow-12/.gemini/antigravity/scratch/freelance_p/backend/app/api/endpoints/users.py", line 94, in read_user_profile
+    profile_data["posted_tasks"] = [{"id": t.id, "title": t.title, "status": t.status.value} for t in user.client_tasks]
+                                                                                                      ^^^^^^^^^^^^^^^^^
+AttributeError: 'User' object has no attribute 'client_tasks'
+

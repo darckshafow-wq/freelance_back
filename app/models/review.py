@@ -1,27 +1,21 @@
-import enum
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum
+from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
-from datetime import datetime
+from datetime import datetime, timezone
 
 from app.db.base_class import Base
-
-class ReviewType(str, enum.Enum):
-    SUGGESTION = "suggestion"
-    IMPROVEMENT = "improvement"
-    COMPLAINT = "complaint"
 
 class Review(Base):
     __tablename__ = "reviews"
 
     id = Column(Integer, primary_key=True, index=True)
-    content = Column(String(2000), nullable=False)
-    review_type = Column(Enum(ReviewType), default=ReviewType.SUGGESTION, index=True)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    task_id = Column(Integer, ForeignKey("tasks.id"), nullable=False)
+    reviewer_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    reviewee_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    rating = Column(Float, nullable=False)
+    comment = Column(String(2000), nullable=False)
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
-    # Auteur de l'avis
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    # Destinataire de l'avis (profil évalué — nullable pour les suggestions générales)
-    reviewee_id = Column(Integer, ForeignKey("users.id"), nullable=True, index=True)
-
-    user = relationship("User", foreign_keys=[user_id], backref="reviews_written")
+    reviewer = relationship("User", foreign_keys=[reviewer_id], backref="reviews_given")
     reviewee = relationship("User", foreign_keys=[reviewee_id], backref="reviews_received")
+    task = relationship("Task", backref="reviews")
+

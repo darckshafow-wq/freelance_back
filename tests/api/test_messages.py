@@ -1,21 +1,33 @@
-import pytest
 from fastapi.testclient import TestClient
-from app.main import app
+from tests.conftest import auth_headers, create_user
 
-client = TestClient(app)
 
-def test_send_message():
-    # Because we mocked get_current_user_mock to return user with ID=1,
-    # we can just send the request directly. User ID 1 is the Admin.
+def test_send_message(client: TestClient):
+    sender = create_user(
+        client,
+        "admin@test.com",
+        "password123",
+        full_name="Test Admin",
+        is_admin=True,
+    )
+    receiver = create_user(
+        client,
+        "receiver@test.com",
+        "password123",
+        full_name="Receiver User",
+    )
+    headers = auth_headers(client, "admin@test.com", "password123")
+
     response = client.post(
         "/api/v1/messages/",
+        headers=headers,
         json={
             "content": "Hello, this is a test message",
-            "receiver_id": 2
-        }
+            "receiver_id": receiver["id"],
+        },
     )
     assert response.status_code == 200
     data = response.json()
     assert data["content"] == "Hello, this is a test message"
-    assert data["sender_id"] == 1
-    assert data["receiver_id"] == 2
+    assert data["sender_id"] == sender["id"]
+    assert data["receiver_id"] == receiver["id"]

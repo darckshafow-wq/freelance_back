@@ -18,3 +18,5 @@ class User(Base):
     is_verified = Column(Boolean(), default=False)
     otp_code = Column(String(6), nullable=True)
     otp_expires_at = Column(String(255), nullable=True) # Using String for simplicity or DateTime if imported
+    refresh_token = Column(String(512), nullable=True)
+    refresh_token_expires_at = Column(String(255), nullable=True)

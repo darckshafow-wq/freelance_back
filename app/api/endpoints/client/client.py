@@ -20,25 +20,16 @@ from app.models.application import ApplicationStatus
 from app.models.notifications import Notification as NotificationModel
 from app.crud.crud_notification import notification as crud_notification
 from app.schemas.notification_schema import Notification as NotificationSchema, NotificationCreate
-from app.models.review import Review, ReviewType
-from pydantic import BaseModel
-from datetime import datetime
+from app.services.application_service import application_service
+from app.services.notification_service import notification_service
+from app.api.endpoints.feedback import user_router as feedback_user_router
+from pydantic import BaseModel, ConfigDict
+from datetime import datetime, timezone
 
-class ReviewCreate(BaseModel):
-    content: str
-    review_type: ReviewType = ReviewType.SUGGESTION
-
-class ReviewResponse(BaseModel):
-    id: int
-    content: str
-    review_type: ReviewType
-    user_id: int
-    created_at: datetime
-
-    class Config:
-        from_attributes = True
 
 router = APIRouter()
+
+router.include_router(feedback_user_router, prefix="/feedback", tags=["client-feedback"])
 
 
 @router.post("/tasks", response_model=Task, summary="Créer une mission")
@@ -87,11 +78,10 @@ def accept_application(
     if not app:
         raise HTTPException(status_code=404, detail="Candidature introuvable")
 
-    task = crud_task.get(db, id=app.task_id)
-    if task and task.client_id != current_user.id and not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Vous n'êtes pas le propriétaire de cette mission")
-
-    updated = crud_app.update_status(db, db_obj=app, status=ApplicationStatus.ACCEPTED)
+    try:
+        updated = application_service.accept_application(db, application=app, current_user=current_user)
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
     return updated
 
 
@@ -105,11 +95,10 @@ def reject_application(
     if not app:
         raise HTTPException(status_code=404, detail="Candidature introuvable")
 
-    task = crud_task.get(db, id=app.task_id)
-    if task and task.client_id != current_user.id and not current_user.is_admin:
-        raise HTTPException(status_code=403, detail="Vous n'êtes pas le propriétaire de cette mission")
-
-    updated = crud_app.update_status(db, db_obj=app, status=ApplicationStatus.REJECTED)
+    try:
+        updated = application_service.reject_application(db, application=app, current_user=current_user)
+    except PermissionError as exc:
+        raise HTTPException(status_code=403, detail=str(exc)) from exc
     return updated
 
 # ─── SECTION NOTIFICATIONS ─────────────────────────────────────────────
@@ -137,7 +126,7 @@ def create_client_notification(
     # Ensure the notification is for the current user
     if message_in.user_id != current_user.id:
         raise HTTPException(status_code=403, detail="Non autorisé")
-    notif = crud_notification.create(db, obj_in=message_in)
+    notif = notification_service.create_for_user(db, user_id=message_in.user_id, message=message_in.message, is_read=message_in.is_read)
     return notif
 
 @router.post("/notifications/{notification_id}/read", response_model=NotificationSchema, summary="Marquer comme lue")
@@ -149,7 +138,7 @@ def read_client_notification(
     db_notification = crud_notification.get(db, id=notification_id)
     if not db_notification or db_notification.user_id != current_user.id:
         raise HTTPException(status_code=404, detail="Notification non trouvée")
-    return crud_notification.mark_as_read(db, db_obj=db_notification)
+    return notification_service.mark_as_read(db, notification=db_notification)
 
 @router.delete("/notifications/{notification_id}", summary="Supprimer une notification")
 def delete_client_notification(
@@ -164,21 +153,4 @@ def delete_client_notification(
     db.commit()
     return {"deleted": True, "id": notification_id}
 
-# ─── SECTION AVIS ET SUGGESTIONS ──────────────────────────────────────
 
-@router.post("/reviews", response_model=ReviewResponse, summary="Laisser un avis ou une suggestion")
-def create_client_review(
-    *,
-    db: Session = Depends(deps.get_db),
-    review_in: ReviewCreate,
-    current_user: User = Depends(deps.get_current_active_client)
-) -> Any:
-    review = Review(
-        content=review_in.content,
-        review_type=review_in.review_type,
-        user_id=current_user.id
-    )
-    db.add(review)
-    db.commit()
-    db.refresh(review)
-    return review
