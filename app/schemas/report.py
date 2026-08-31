@@ -2,17 +2,17 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
 
-class FeedbackBase(BaseModel):
-    subject: str
-    content: str
+class ReportBase(BaseModel):
+    reason: str
+    target_id: Optional[int] = None
+    project_id: Optional[int] = None
 
-class FeedbackCreate(FeedbackBase):
+class ReportCreate(ReportBase):
     pass
 
-class FeedbackOut(FeedbackBase):
+class ReportOut(ReportBase):
     id: int
-    user_id: int
-    admin_reply: Optional[str] = None
+    reporter_id: int
     status: str
     created_at: datetime
 

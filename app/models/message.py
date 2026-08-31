@@ -1,20 +1,19 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
+from datetime import datetime
+from sqlalchemy import Column, Integer, Text, Boolean, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
-from datetime import datetime, timezone
-
 from app.db.base_class import Base
 
 class Message(Base):
     __tablename__ = "messages"
 
     id = Column(Integer, primary_key=True, index=True)
-    content = Column(String(2000), nullable=False)
-    timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc))
-    
+    project_id = Column(Integer, ForeignKey("projects.id"), nullable=False)
     sender_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     receiver_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    task_id = Column(Integer, ForeignKey("tasks.id"), nullable=True) # Optional link to a task
-    
-    sender = relationship("User", foreign_keys=[sender_id], backref="sent_messages")
-    receiver = relationship("User", foreign_keys=[receiver_id], backref="received_messages")
-    task = relationship("Task", backref="messages")
+    content = Column(Text, nullable=False)
+    is_read = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    project = relationship("Project", back_populates="messages")
+    sender = relationship("User", foreign_keys=[sender_id])
+    receiver = relationship("User", foreign_keys=[receiver_id])

@@ -1,12 +1,9 @@
 fastapi
-uvicorn[standard]
+uvicorn
 sqlalchemy
-psycopg2-binary
 alembic
-pydantic[email]
+pydantic
 pydantic-settings
-pytest
-httpx
 passlib[bcrypt]
 python-jose[cryptography]
-python-multipart
+websockets
