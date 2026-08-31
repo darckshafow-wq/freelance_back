@@ -1,33 +1,42 @@
-from typing import Optional
-from pydantic import BaseModel, ConfigDict, EmailStr
+from pydantic import BaseModel, EmailStr
+from typing import Optional, List
+from datetime import datetime
+from app.models.user import UserRole
 
-# Shared properties
-class UserBase(BaseModel):
-    email: Optional[EmailStr] = None
-    full_name: Optional[str] = None
-    is_active: Optional[bool] = True
-    is_admin: bool = False
-    is_client: bool = False
-    is_freelancer: bool = False
-    location: Optional[str] = None
+class ProfileBase(BaseModel):
+    bio: Optional[str] = None
+    skills: Optional[str] = None
+    avatar_url: Optional[str] = None
 
-# Properties to receive via API on creation
-class UserCreate(UserBase):
-    email: EmailStr
-    password: str
-
-# Properties to receive via API on update
-class UserUpdate(UserBase):
-    password: Optional[str] = None
-
-class UserInDBBase(UserBase):
-    id: Optional[int] = None
-    model_config = ConfigDict(from_attributes=True)
-
-# Additional properties to return via API
-class User(UserInDBBase):
+class ProfileCreate(ProfileBase):
     pass
 
-# Additional properties stored in DB
-class UserInDB(UserInDBBase):
-    hashed_password: str
+class ProfileOut(ProfileBase):
+    id: int
+    user_id: int
+    rating_average: float
+    identity_verified: bool
+
+    class Config:
+        from_attributes = True
+
+class UserBase(BaseModel):
+    email: EmailStr
+    full_name: str
+
+class UserCreate(UserBase):
+    password: str
+    role: UserRole
+
+class UserOut(UserBase):
+    id: int
+    role: UserRole
+    is_active: bool
+    is_suspended: bool
+    created_at: datetime
+    failed_login_attempts: int
+    last_failed_login: Optional[datetime] = None
+    profile: Optional[ProfileOut] = None
+
+    class Config:
+        from_attributes = True

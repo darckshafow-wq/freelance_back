@@ -1,19 +1,20 @@
+from pydantic import BaseModel
+from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, ConfigDict
-# Remplace l'ancien import par celui-ci avec un alias 'as' :
-from app.models.notifications import Notification as NotificationModel
 
 class NotificationBase(BaseModel):
-    message: str
-    is_read: Optional[bool] = False
+    title: str
+    content: str
+    type: Optional[str] = None
 
 class NotificationCreate(NotificationBase):
     user_id: int
 
-class NotificationUpdate(NotificationBase):
-    is_read: Optional[bool] = None 
-
-class NotificationInDBBase(NotificationBase):
+class NotificationOut(NotificationBase):
     id: int
     user_id: int
-    model_config = ConfigDict(from_attributes=True)
+    is_read: bool
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
