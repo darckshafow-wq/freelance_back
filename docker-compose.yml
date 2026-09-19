@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: freelance_db
+    command: postgres -c max_connections=1000 -c shared_buffers=512MB
+    environment:
+      POSTGRES_PASSWORD: secure_password
+      POSTGRES_DB: freelance_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - freelance_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d freelance_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: freelance_api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://postgres:secure_password@postgres:5432/freelance_db
+      SECRET_KEY: ${SECRET_KEY:-your-super-secret-key-change-in-production}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+    volumes:
+      - .:/app
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
+    networks:
+      - freelance_network
+
+networks:
+  freelance_network:
+    driver: bridge
+
+volumes:
+  postgres_data:

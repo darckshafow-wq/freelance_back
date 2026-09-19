@@ -1,0 +1,32 @@
+# Todo admin
+
+## Terminé
+- [x] Vue d'ensemble admin
+- [x] Liste des utilisateurs
+- [x] Liste des projets
+- [x] Liste des reports
+- [x] Statistiques globales
+- [x] Supervision de base
+
+## En cours
+- [~] Vérification des contrôles d'accès
+- [~] Analyse des KPI admin
+
+## À faire
+- [ ] Ajouter des filtres avancés
+- [ ] Exporter les rapports en CSV / PDF
+- [ ] Améliorer la modération des signalements
+- [ ] Ajouter un historique détaillé des actions
+- [ ] Créer un dashboard plus visuel
+- [ ] Ajouter des alertes automatiques
+- [ ] Sécuriser davantage les droits admin
+- [ ] Ajouter l'audit trail complet
+- [ ] Gérer les comptes suspendus de façon centralisée
+- [ ] Mettre en place des rappels d'actions urgentes
+
+## Priorités
+- [ ] Sécurité admin
+- [ ] Dashboard KPI
+- [ ] Modération
+- [ ] Audit
+- [ ] Automatisation

@@ -4,6 +4,13 @@ sqlalchemy
 alembic
 pydantic
 pydantic-settings
-passlib[bcrypt]
+passlib[bcrypt]==1.7.4
+bcrypt==4.1.1
 python-jose[cryptography]
 websockets
+psycopg2-binary
+python-dotenv
+email-validator
+python-multipart
+pyotp
+qrcode[pil]

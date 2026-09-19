@@ -10,7 +10,15 @@ def create_project(db: Session, client_id: int, project_in: ProjectCreate) -> Pr
         client_id=client_id,
         title=project_in.title,
         description=project_in.description,
-        category=project_in.category,
+        country_id=project_in.country_id,
+        city_id=project_in.city_id,
+        district_id=project_in.district_id,
+        latitude=project_in.latitude,
+        longitude=project_in.longitude,
+        image_url=project_in.image_url,
+        budget=project_in.budget,
+        scheduled_at=project_in.scheduled_at,
+        category_id=project_in.category_id,
         status=ProjectStatus.OPEN
     )
     db.add(project)
@@ -42,8 +50,8 @@ def validate_submission(db: Session, project_id: int, client_id: int) -> Project
     if project.client_id != client_id:
         raise HTTPException(status_code=403, detail="Not authorized")
         
-    if project.status != ProjectStatus.SUBMITTED:
-        raise HTTPException(status_code=400, detail="Project must be SUBMITTED to validate")
+    if project.status != ProjectStatus.FINISHED:
+        raise HTTPException(status_code=400, detail="Project must be FINISHED to validate")
         
     project.status = ProjectStatus.COMPLETED
     db.commit()

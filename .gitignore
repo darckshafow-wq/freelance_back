@@ -16,3 +16,4 @@ venv/
 # Base de données locale (si SQLite de test)
 *.sqlite3
 *.db
+documentation

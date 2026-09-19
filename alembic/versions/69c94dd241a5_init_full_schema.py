@@ -1,8 +1,8 @@
-"""Initial v1.1
+"""Init full schema
 
-Revision ID: df40ae367abe
+Revision ID: 69c94dd241a5
 Revises: 
-Create Date: 2026-08-31 21:31:31.700708
+Create Date: 2026-09-12 10:59:38.702204
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'df40ae367abe'
+revision: str = '69c94dd241a5'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -27,8 +27,10 @@ def upgrade() -> None:
     sa.Column('is_active', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_categories_id'), 'categories', ['id'], unique=False)
-    op.create_index(op.f('ix_categories_name'), 'categories', ['name'], unique=True)
+    with op.batch_alter_table('categories', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_categories_id'), ['id'], unique=False)
+        batch_op.create_index(batch_op.f('ix_categories_name'), ['name'], unique=True)
+
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('email', sa.String(), nullable=False),
@@ -39,11 +41,18 @@ def upgrade() -> None:
     sa.Column('is_suspended', sa.Boolean(), nullable=True),
     sa.Column('failed_login_attempts', sa.Integer(), nullable=True),
     sa.Column('last_failed_login', sa.DateTime(), nullable=True),
+    sa.Column('two_factor_enabled', sa.Boolean(), nullable=True),
+    sa.Column('totp_secret', sa.String(), nullable=True),
+    sa.Column('password_reset_token', sa.String(), nullable=True),
+    sa.Column('password_reset_expires_at', sa.DateTime(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('password_reset_token')
     )
-    op.create_index(op.f('ix_users_email'), 'users', ['email'], unique=True)
-    op.create_index(op.f('ix_users_id'), 'users', ['id'], unique=False)
+    with op.batch_alter_table('users', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_users_email'), ['email'], unique=True)
+        batch_op.create_index(batch_op.f('ix_users_id'), ['id'], unique=False)
+
     op.create_table('audit_logs',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
@@ -55,7 +64,9 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_audit_logs_id'), 'audit_logs', ['id'], unique=False)
+    with op.batch_alter_table('audit_logs', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_audit_logs_id'), ['id'], unique=False)
+
     op.create_table('feedbacks',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -67,7 +78,9 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_feedbacks_id'), 'feedbacks', ['id'], unique=False)
+    with op.batch_alter_table('feedbacks', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_feedbacks_id'), ['id'], unique=False)
+
     op.create_table('notifications',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -79,7 +92,9 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_notifications_id'), 'notifications', ['id'], unique=False)
+    with op.batch_alter_table('notifications', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_notifications_id'), ['id'], unique=False)
+
     op.create_table('profiles',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
@@ -92,7 +107,9 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('user_id')
     )
-    op.create_index(op.f('ix_profiles_id'), 'profiles', ['id'], unique=False)
+    with op.batch_alter_table('profiles', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_profiles_id'), ['id'], unique=False)
+
     op.create_table('projects',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('client_id', sa.Integer(), nullable=False),
@@ -101,13 +118,16 @@ def upgrade() -> None:
     sa.Column('description', sa.Text(), nullable=False),
     sa.Column('localisation', sa.String(), nullable=False),
     sa.Column('scheduled_at', sa.DateTime(), nullable=False),
+    sa.Column('finished_at', sa.DateTime(), nullable=True),
     sa.Column('status', sa.Enum('OPEN', 'IN_PROGRESS', 'ARRIVED', 'FINISHED', 'COMPLETED', 'CANCELLED', 'DISPUTED', name='projectstatus'), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['category_id'], ['categories.id'], ),
     sa.ForeignKeyConstraint(['client_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_projects_id'), 'projects', ['id'], unique=False)
+    with op.batch_alter_table('projects', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_projects_id'), ['id'], unique=False)
+
     op.create_table('system_warnings',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('warning_type', sa.String(), nullable=False),
@@ -118,7 +138,9 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_system_warnings_id'), 'system_warnings', ['id'], unique=False)
+    with op.batch_alter_table('system_warnings', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_system_warnings_id'), ['id'], unique=False)
+
     op.create_table('messages',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('project_id', sa.Integer(), nullable=False),
@@ -132,20 +154,27 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['sender_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_messages_id'), 'messages', ['id'], unique=False)
+    with op.batch_alter_table('messages', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_messages_id'), ['id'], unique=False)
+
     op.create_table('proposals',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('project_id', sa.Integer(), nullable=False),
     sa.Column('freelance_id', sa.Integer(), nullable=False),
     sa.Column('message', sa.Text(), nullable=True),
     sa.Column('proposed_price', sa.Float(), nullable=False),
-    sa.Column('status', sa.Enum('PENDING', 'ACCEPTED', 'REJECTED', name='proposalstatus'), nullable=False),
+    sa.Column('is_direct_offer', sa.Boolean(), nullable=False),
+    sa.Column('offered_by_client', sa.Boolean(), nullable=False),
+    sa.Column('status', sa.Enum('PENDING', 'ACCEPTED', 'REJECTED', 'DIRECT_OFFER', 'PENDING_COMPLETION', name='proposalstatus'), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('responded_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['freelance_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['project_id'], ['projects.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_proposals_id'), 'proposals', ['id'], unique=False)
+    with op.batch_alter_table('proposals', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_proposals_id'), ['id'], unique=False)
+
     op.create_table('reports',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('reporter_id', sa.Integer(), nullable=False),
@@ -159,7 +188,9 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['target_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_reports_id'), 'reports', ['id'], unique=False)
+    with op.batch_alter_table('reports', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_reports_id'), ['id'], unique=False)
+
     op.create_table('reviews',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('project_id', sa.Integer(), nullable=False),
@@ -174,37 +205,63 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['reviewer_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_index(op.f('ix_reviews_id'), 'reviews', ['id'], unique=False)
+    with op.batch_alter_table('reviews', schema=None) as batch_op:
+        batch_op.create_index(batch_op.f('ix_reviews_id'), ['id'], unique=False)
+
     # ### end Alembic commands ###
 
 
 def downgrade() -> None:
     """Downgrade schema."""
     # ### commands auto generated by Alembic - please adjust! ###
-    op.drop_index(op.f('ix_reviews_id'), table_name='reviews')
+    with op.batch_alter_table('reviews', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_reviews_id'))
+
     op.drop_table('reviews')
-    op.drop_index(op.f('ix_reports_id'), table_name='reports')
+    with op.batch_alter_table('reports', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_reports_id'))
+
     op.drop_table('reports')
-    op.drop_index(op.f('ix_proposals_id'), table_name='proposals')
+    with op.batch_alter_table('proposals', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_proposals_id'))
+
     op.drop_table('proposals')
-    op.drop_index(op.f('ix_messages_id'), table_name='messages')
+    with op.batch_alter_table('messages', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_messages_id'))
+
     op.drop_table('messages')
-    op.drop_index(op.f('ix_system_warnings_id'), table_name='system_warnings')
+    with op.batch_alter_table('system_warnings', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_system_warnings_id'))
+
     op.drop_table('system_warnings')
-    op.drop_index(op.f('ix_projects_id'), table_name='projects')
+    with op.batch_alter_table('projects', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_projects_id'))
+
     op.drop_table('projects')
-    op.drop_index(op.f('ix_profiles_id'), table_name='profiles')
+    with op.batch_alter_table('profiles', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_profiles_id'))
+
     op.drop_table('profiles')
-    op.drop_index(op.f('ix_notifications_id'), table_name='notifications')
+    with op.batch_alter_table('notifications', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_notifications_id'))
+
     op.drop_table('notifications')
-    op.drop_index(op.f('ix_feedbacks_id'), table_name='feedbacks')
+    with op.batch_alter_table('feedbacks', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_feedbacks_id'))
+
     op.drop_table('feedbacks')
-    op.drop_index(op.f('ix_audit_logs_id'), table_name='audit_logs')
+    with op.batch_alter_table('audit_logs', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_audit_logs_id'))
+
     op.drop_table('audit_logs')
-    op.drop_index(op.f('ix_users_id'), table_name='users')
-    op.drop_index(op.f('ix_users_email'), table_name='users')
+    with op.batch_alter_table('users', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_users_id'))
+        batch_op.drop_index(batch_op.f('ix_users_email'))
+
     op.drop_table('users')
-    op.drop_index(op.f('ix_categories_name'), table_name='categories')
-    op.drop_index(op.f('ix_categories_id'), table_name='categories')
+    with op.batch_alter_table('categories', schema=None) as batch_op:
+        batch_op.drop_index(batch_op.f('ix_categories_name'))
+        batch_op.drop_index(batch_op.f('ix_categories_id'))
+
     op.drop_table('categories')
     # ### end Alembic commands ###

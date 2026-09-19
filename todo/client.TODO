@@ -1,0 +1,37 @@
+# Todo client
+
+## Terminé
+- [x] Création de projets
+- [x] Consultation des projets
+- [x] Gestion des propositions
+- [x] Validation de fournisseurs
+- [x] Historique des tâches
+- [x] Statistiques client
+- [x] Gestion des reports de base
+
+## En cours
+- [~] Vérification du parcours client
+- [~] Contrôle des erreurs métier
+
+## À faire
+- [ ] Améliorer l'expérience de création de projet
+- [ ] Ajouter une prévisualisation avant publication
+- [ ] Mettre en place un suivi temps réel
+- [ ] Ajouter plus de feedback pendant la mission
+- [ ] Gérer les demandes de modification plus clairement
+- [ ] Rendre la validation plus explicite avant publication
+- [ ] Mettre en place des notifications plus riches
+- [ ] Ajouter un historique plus détaillé des décisions
+- [ ] Améliorer la gestion des litiges
+- [ ] Ajouter le paiement sécurisé
+- [ ] Ajouter une validation de livraison détaillée
+- [ ] Rendre l'espace de discussion plus ergonomique
+- [ ] Ajouter le suivi du budget
+- [ ] Ajouter des recommandations de freelances
+
+## Priorités
+- [ ] UX de création
+- [ ] Suivi de mission
+- [ ] Paiement
+- [ ] Communication
+- [ ] Gestion des litiges

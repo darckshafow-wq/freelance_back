@@ -1,9 +1,8 @@
+import json
 from fastapi import WebSocket
-from typing import Dict, List
+from typing import Dict, List, Any
 from sqlalchemy.orm import Session
 from app.models.message import Message
-from app.models.project import Project, ProjectStatus
-from app.models.user import User
 
 class ConnectionManager:
     def __init__(self):
@@ -15,17 +14,34 @@ class ConnectionManager:
         if user_id not in self.active_connections:
             self.active_connections[user_id] = []
         self.active_connections[user_id].append(websocket)
+        # Diffuser le statut en ligne (optionnel, selon les besoins UI)
+        await self.broadcast_presence(user_id, True)
 
-    def disconnect(self, websocket: WebSocket, user_id: int):
+    async def disconnect(self, websocket: WebSocket, user_id: int):
         if user_id in self.active_connections:
-            self.active_connections[user_id].remove(websocket)
+            if websocket in self.active_connections[user_id]:
+                self.active_connections[user_id].remove(websocket)
             if not self.active_connections[user_id]:
                 del self.active_connections[user_id]
+                await self.broadcast_presence(user_id, False)
 
-    async def send_personal_message(self, message: str, user_id: int):
+    def is_online(self, user_id: int) -> bool:
+        return user_id in self.active_connections
+
+    async def send_json_to_user(self, data: Dict[str, Any], user_id: int):
+        """Envoie un message JSON à toutes les sessions d'un utilisateur"""
         if user_id in self.active_connections:
             for connection in self.active_connections[user_id]:
-                await connection.send_text(message)
+                try:
+                    await connection.send_json(data)
+                except:
+                    # Gérer les connexions rompues silencieusement
+                    pass
+
+    async def broadcast_presence(self, user_id: int, online: bool):
+        """Notifie le changement de statut (pourrait être filtré par contacts)"""
+        # Cette implémentation est basique, en production on filtrerait
+        pass
 
 manager = ConnectionManager()
 

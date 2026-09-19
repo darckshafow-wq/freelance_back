@@ -24,6 +24,14 @@ class User(Base):
     failed_login_attempts = Column(Integer, default=0)
     last_failed_login = Column(DateTime, nullable=True)
     
+    # Two-Factor Authentication (OTP)
+    two_factor_enabled = Column(Boolean, default=False)
+    totp_secret = Column(String, nullable=True)  # Base32 encoded secret for TOTP
+    
+    # Password Reset
+    password_reset_token = Column(String, nullable=True, unique=True)
+    password_reset_expires_at = Column(DateTime, nullable=True)
+    
     created_at = Column(DateTime, default=datetime.utcnow)
 
     profile = relationship("Profile", back_populates="user", uselist=False)

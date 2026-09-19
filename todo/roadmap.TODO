@@ -1,0 +1,36 @@
+# Roadmap
+
+## Phase 1 - Stabilisation
+- [x] Sécuriser la base des endpoints
+- [x] Finaliser les validations de base
+- [x] Corriger les cas limites principaux
+- [x] Compléter les tests de base
+- [x] Vérifier les permissions par rôle
+
+## Phase 2 - Expérience utilisateur
+- [~] Améliorer les dashboards
+- [~] Rendre les notifications plus riches
+- [ ] Classer les projets plus intelligemment
+- [ ] Rendre le chat plus ergonomique
+- [ ] Améliorer le parcours utilisateur global
+
+## Phase 3 - Fonctionnalités avancées
+- [ ] Ajouter le paiement
+- [ ] Ajouter la géolocalisation avancée
+- [ ] Gérer les pièces jointes / fichiers
+- [ ] Développer les analytics et reporting
+- [ ] Ajouter les recommandations intelligentes
+
+## Phase 4 - Production
+- [ ] Mettre en place le monitoring
+- [ ] Centraliser les logs
+- [ ] Préparer les backups
+- [ ] Optimiser la base de données
+- [ ] Préparer le déploiement multi-environnement
+
+## Priorités globales
+- [ ] Sécurité
+- [ ] Qualité de service
+- [ ] Expérience utilisateur
+- [ ] Paiements
+- [ ] Production

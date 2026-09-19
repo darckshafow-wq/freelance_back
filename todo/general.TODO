@@ -1,0 +1,36 @@
+# Todo général
+
+## Terminé
+- [x] Backend principal fonctionnel
+- [x] Authentification JWT
+- [x] Gestion des rôles
+- [x] Modèles de base du projet
+- [x] Workflow de projet de base
+- [x] Statistiques de base
+- [x] Chat / messages
+- [x] Documentation de projet
+- [x] Données de seed
+
+## En cours
+- [~] Vérification complète des flux métier
+- [~] Contrôle des cas limites
+- [~] Documentation de suivi interne
+
+## À faire
+- [ ] Renforcer les validations
+- [ ] Ajouter des logs plus détaillés
+- [ ] Mettre en place le monitoring
+- [ ] Optimiser la base de données
+- [ ] Mettre en place les notifications email / SMS
+- [ ] Ajouter le paiement
+- [ ] Finaliser le reporting avancé
+- [ ] Améliorer l'expérience frontend
+- [ ] Préparer la mise en production
+
+## Priorités
+- [ ] Sécurité
+- [ ] Robustesse du système
+- [ ] Notifications
+- [ ] Paiement
+- [ ] UX
+- [ ] Production

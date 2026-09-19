@@ -1,0 +1,51 @@
+# Todo project
+
+## Vue d'ensemble
+
+Ce dossier suit le projet avec une méthode simple de gestion des tâches.
+
+## Structure
+
+- [general.TODO](general.TODO) : vue générale du projet
+- [admin.TODO](admin.TODO) : tâches côté admin
+- [client.TODO](client.TODO) : tâches côté client
+- [freelance.TODO](freelance.TODO) : tâches côté freelance
+- [roadmap.TODO](roadmap.TODO) : plan d'évolution
+
+---
+
+## Tableau de bord
+
+### Terminé
+- [x] Structure du backend principale
+- [x] Gestion des rôles utilisateur
+- [x] Création de projets
+- [x] Propositions et offres directes
+- [x] Chat / messages
+- [x] Documentation de base
+- [x] Données de seed / tests
+
+### En cours
+- [~] Vérification des flux métier
+- [~] Nettoyage des cas limites
+- [~] Documentation de suivi projet
+
+### À faire
+- [ ] Sécuriser davantage les endpoints
+- [ ] Ajouter les notifications email / SMS
+- [ ] Finaliser le workflow de paiement
+- [ ] Améliorer les dashboards admin
+- [ ] Optimiser la base de données
+- [ ] Préparer le frontend et l'intégration
+- [ ] Mettre en place la production / monitoring
+
+---
+
+## Priorités
+
+1. Sécurité et robustesse
+2. Flux métier complet
+3. Notifications
+4. Paiement
+5. UX / frontend
+6. Production et monitoring

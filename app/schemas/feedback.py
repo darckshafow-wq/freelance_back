@@ -18,3 +18,7 @@ class FeedbackOut(FeedbackBase):
 
     class Config:
         from_attributes = True
+
+class FeedbackReply(BaseModel):
+    reply: str
+
